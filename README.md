@@ -1,4 +1,4 @@
-# 사용 Libaray
+# 사용 library
 - zap
 - sql
 
