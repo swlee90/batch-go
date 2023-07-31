@@ -2,7 +2,6 @@ package configuration
 
 import (
 	"fmt"
-	"github.com/sw90lee/batch-sample/logger"
 	"gopkg.in/yaml.v3"
 	"os"
 )
@@ -26,8 +25,6 @@ type DBConfig struct {
 	DB_PORT     int    `yaml:"db_port"`
 	DB_TABLE    string `yaml:"db_table"`
 }
-
-var log = logger.NewLogger()
 
 func NewConfig(configPath string) (*Config, error) {
 	config := &Config{}
@@ -62,7 +59,7 @@ func ValidateConfigPath(path string) error {
 func NewDBConfig() *DBConfig {
 	cfg, err := NewConfig("config.yml")
 	if err != nil {
-		log.Error(err.Error())
+		panic(err)
 	}
 
 	return &DBConfig{

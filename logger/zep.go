@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"github.com/swlee90/batch-go/configuration"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"
@@ -36,13 +37,32 @@ var Log TestLogger
 //
 //		return logger
 //	}
+
 func NewLogger() *zap.SugaredLogger {
+	cfg, err := configuration.NewConfig("config.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	var level zapcore.Level
+
 	encoderCfg := zap.NewProductionEncoderConfig()
 	encoderCfg.TimeKey = "timestamp"
 	encoderCfg.EncodeTime = zapcore.ISO8601TimeEncoder
 
+	switch cfg.Logger.Level {
+	case "INFO":
+		level = zap.InfoLevel
+	case "DEBUG":
+		level = zap.DebugLevel
+	case "FATAL":
+		level = zap.FatalLevel
+	default:
+		level = zap.InfoLevel
+	}
+
 	config := zap.Config{
-		Level:             zap.NewAtomicLevelAt(zap.InfoLevel),
+		Level:             zap.NewAtomicLevelAt(level),
 		Development:       false,
 		DisableCaller:     false,
 		DisableStacktrace: false,

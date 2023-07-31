@@ -3,8 +3,8 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"github.com/sw90lee/batch-sample/configuration"
-	"github.com/sw90lee/batch-sample/logger"
+	"github.com/swlee90/batch-go/configuration"
+	"github.com/swlee90/batch-go/logger"
 
 	_ "github.com/lib/pq"
 )

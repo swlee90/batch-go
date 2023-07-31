@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/jasonlvhit/gocron"
-	"github.com/sw90lee/batch-sample/configuration"
-	"github.com/sw90lee/batch-sample/db"
-	"github.com/sw90lee/batch-sample/logger"
+	"github.com/swlee90/batch-go/configuration"
+	"github.com/swlee90/batch-go/db"
+	"github.com/swlee90/batch-go/logger"
 )
 
 func main() {
