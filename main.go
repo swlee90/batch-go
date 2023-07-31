@@ -11,7 +11,7 @@ import (
 func main() {
 	log := logger.NewLogger()
 	log.Info("Start Batch Program")
-	gocron.Every(1).Minutes().Do(minutesTask)
+	gocron.Every(5).Seconds().Do(minutesTask)
 	<-gocron.Start()
 
 	s := gocron.NewScheduler()

@@ -62,10 +62,11 @@ func ValidateConfigPath(path string) error {
 func NewDBConfig() *DBConfig {
 	cfg, err := NewConfig("config.yml")
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Error(err.Error())
 	}
 
 	return &DBConfig{
+		// getEnv(환경변수 Key값, defaultValue)
 		DB_URL:      getEnv("DB_URL", cfg.DBConfig.DB_URL),
 		DB_USER:     getEnv("DB_USER", cfg.DBConfig.DB_USER),
 		DB_PASSWORD: getEnv("DB_PASSWORD", cfg.DBConfig.DB_PASSWORD),

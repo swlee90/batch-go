@@ -25,7 +25,7 @@ func DbConn() *sql.DB {
 
 	conn, err := sql.Open("postgres", dbinfo)
 	if err != nil {
-		panic(err)
+		log.Error(err)
 	}
 
 	return conn
@@ -45,14 +45,14 @@ func (pg *Pdb) CreateTable() {
 	if err != nil {
 		log.Error(err)
 	}
-	fmt.Println("Finished creating table")
+	log.Info("Finished creating table")
 }
 
 func (pg *Pdb) SelectTbl() *sql.Rows {
 	stmt1 := fmt.Sprintf("SELECT * from %s;", pg.Table)
 	rows, err := pg.DbObj.Query(stmt1)
 	if err != nil {
-		panic(err)
+		log.Error(err)
 	}
 	return rows
 }
@@ -61,13 +61,13 @@ func (pg *Pdb) InsertTbl() {
 	stmtIns := fmt.Sprintf("INSERT INTO %s (name, quantity) VALUES ($1, $2);", pg.Table)
 	_, err := pg.DbObj.Exec(stmtIns, "test0", 100)
 	if err != nil {
-		panic(err)
+		log.Error(err)
 	}
 	_, err = pg.DbObj.Exec(stmtIns, "test1", 101)
 	if err != nil {
-		panic(err)
+		log.Error(err)
 	}
-	fmt.Println("Inserted 2 records")
+	log.Info("Inserted 2 records")
 }
 
 func PrintRows(rows *sql.Rows) {
@@ -78,13 +78,14 @@ func PrintRows(rows *sql.Rows) {
 	for rows.Next() {
 		switch err := rows.Scan(&id, &name, &quantity); err {
 		case sql.ErrNoRows:
-			fmt.Println("No rows were returned")
+			log.Error("No rows were returned")
 		case nil:
-			fmt.Printf("%d, %s, %d\n", id, name, quantity)
+			log.Infof("%d, %s, %d\n", id, name, quantity)
 		default:
 			if err != nil {
 				panic(err)
 			}
 		}
 	}
+
 }
